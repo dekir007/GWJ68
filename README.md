@@ -50,12 +50,12 @@ The `examples/` folder contains an example project using inherited scenes from t
 -   End Credits
 -   Shader Pre-caching
 -   Additional Inherited Scenes:
-    -   `OptionsMenuWithReset.tscn`
-    -   `MasterOptionsMenuWithGameTab.tscn`
-    -   `MainMenuWithAnimations.tscn` 
-    -   `PauseMenuWithScenes.tscn`
-    -   `InitAppWithOpening.tscn`
-    -   `LoadingScreenWithShaderCaching.tscn`
+	-   `OptionsMenuWithReset.tscn`
+	-   `MasterOptionsMenuWithGameTab.tscn`
+	-   `MainMenuWithAnimations.tscn` 
+	-   `PauseMenuWithScenes.tscn`
+	-   `InitAppWithOpening.tscn`
+	-   `LoadingScreenWithShaderCaching.tscn`
 
 ### How it Works
 - `InitApp.tscn` is the project's main scene. It loads all the configuration settings from the config file (if it exists) into game and sets the loading screen. It then loads the next scene (`Opening.tscn` or `MainMenu.tscn`).  

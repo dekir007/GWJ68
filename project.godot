@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Game Template"
-run/main_scene="res://Examples/Scenes/InitApp/InitAppWithOpening.tscn"
+config/name="GWJ 68"
+run/main_scene="res://Scenes/InitApp/InitAppWithOpening.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
@@ -31,6 +31,15 @@ window/size/viewport_height=720
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/maaacks_game_template/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "blue",
+"res://Components/": "red",
+"res://Scenes/": "yellow",
+"res://addons/": "gray"
+}
 
 [gui]
 
