@@ -47,19 +47,13 @@ horizontal_alignment = 1
 autowrap_mode = 2
 script = ExtResource("6_6hq0m")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Node3D" type="Node3D" parent="."]
 
 [node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
 script = ExtResource("7_dgyvu")
-level_container = NodePath("../Control")
-files = Array[String](["res://Scenes/GameScene/Levels/Level1.tscn", "res://Scenes/GameScene/Levels/Level2.tscn", "res://Scenes/GameScene/Levels/Level3.tscn"])
-directory = "res://Scenes/GameScene/Levels"
+level_container = NodePath("../Node3D")
+files = Array[String](["res://Test/test_forge.tscn"])
+directory = "res://Test"
 
 [connection signal="level_load_started" from="LevelLoader" to="." method="_on_level_loader_level_load_started"]
 [connection signal="level_loaded" from="LevelLoader" to="." method="_on_level_loader_level_loaded"]

@@ -21,3 +21,4 @@ func _unhandled_input(event: InputEvent) -> void:
 			final_val = -50
 		tw.tween_property(camera_3d, "rotation_degrees:y", final_val, .5)
 		#camera_3d.rotate_y(PI/2)
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=8 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
 
@@ -9,11 +9,14 @@ albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6ebed"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_ugyn7"]
-size = Vector3(2, 0.2, 2)
-
 [sub_resource type="BoxMesh" id="BoxMesh_off0k"]
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7kmkl"]
+data = PackedVector3Array(-0.1, 0.1, 0.1, 0.1, 0.1, 0.1, -0.1, -0.1, 0.1, 0.1, 0.1, 0.1, 0.1, -0.1, 0.1, -0.1, -0.1, 0.1, 0.1, 0.1, -0.1, -0.1, 0.1, -0.1, 0.1, -0.1, -0.1, -0.1, 0.1, -0.1, -0.1, -0.1, -0.1, 0.1, -0.1, -0.1, 0.1, 0.1, 0.1, 0.1, 0.1, -0.1, 0.1, -0.1, 0.1, 0.1, 0.1, -0.1, 0.1, -0.1, -0.1, 0.1, -0.1, 0.1, -0.1, 0.1, -0.1, -0.1, 0.1, 0.1, -0.1, -0.1, -0.1, -0.1, 0.1, 0.1, -0.1, -0.1, 0.1, -0.1, -0.1, -0.1, 0.1, 0.1, 0.1, -0.1, 0.1, 0.1, 0.1, 0.1, -0.1, -0.1, 0.1, 0.1, -0.1, 0.1, -0.1, 0.1, 0.1, -0.1, -0.1, -0.1, 0.1, 0.1, -0.1, 0.1, -0.1, -0.1, -0.1, 0.1, -0.1, 0.1, 0.1, -0.1, -0.1, -0.1, -0.1, -0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ugyn7"]
+size = Vector3(2, 0.2, 2)
 
 [node name="TestForge" type="Node3D"]
 script = ExtResource("1_kefk8")
@@ -67,6 +70,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
 billboard = 1
 text = "Anvil"
 font_size = 36
+
+[node name="Node3D" type="Node3D" parent="Forge/Anvil"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.599287, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Forge/Anvil/Node3D"]
+transform = Transform3D(0.348, 0.070189, -0.352093, 0.062732, 0.470921, 0.15588, 0.353497, -0.152668, 0.318955, 0, 0, 0)
+mesh = SubResource("BoxMesh_off0k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Forge/Anvil/Node3D/MeshInstance3D2"]
+transform = Transform3D(1, 1.49012e-08, 0, 0, 1, 0, 2.98023e-08, 1.49012e-08, 1, 0, 0, 0)
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Forge/Anvil/Node3D/MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, -4.47035e-08, 5.96046e-08, 1.49012e-08, 1, 2.98023e-08, -8.9407e-08, -1.49012e-08, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_7kmkl")
 
 [node name="Pot" type="MeshInstance3D" parent="Forge"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.275913, 0.342274, -1.86463)
