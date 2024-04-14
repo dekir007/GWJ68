@@ -13,7 +13,7 @@ func _ready() -> void:
 	if item.icon != null:
 		icon.texture = item.icon
 	header.text = item.item_name if !item.item_name.is_empty() else "Empty name"
-	description.text = "Quality: " + item.Quality.find_key(item.quality) + (("\n" + item.description) if !item.description.is_empty() else "")
+	description.text = "Quality: " + item.Quality.find_key(item.quality) + (("\nDescription: " + item.description) if !item.description.is_empty() else "")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
