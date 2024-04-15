@@ -27,6 +27,7 @@ ProjectUISoundController="*res://addons/maaacks_game_template/extras/scenes/Auto
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -44,6 +45,8 @@ folder_colors={
 
 [gui]
 
+theme/custom="res://Assets/styles and themes/theme.tres"
+theme/custom_font="res://Assets/fonts/Lora.ttf"
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]

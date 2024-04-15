@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bkaa48gp3mrg2"]
+
+[ext_resource type="Texture2D" uid="uid://5rgjcq1wyqqw" path="res://Assets/2d/hover.png" id="1_o4btj"]
+
+[resource]
+texture = ExtResource("1_o4btj")
+modulate_color = Color(0.8, 0.992157, 0, 1)

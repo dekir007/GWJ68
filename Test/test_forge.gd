@@ -24,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					equipment_distribution.show()
 					)
 		else:
-			final_val = -50
+			final_val = -43
 			tw.set_parallel(true)
 			c = Callable(func():
 					equipment_distribution.hide()

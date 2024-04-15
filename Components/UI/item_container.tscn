@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cquxogvrslfew"]
+[gd_scene load_steps=9 format=3 uid="uid://cquxogvrslfew"]
 
 [ext_resource type="Script" path="res://Components/UI/item_container.gd" id="1_l00d4"]
 [ext_resource type="Texture2D" uid="uid://5slhskoqilj1" path="res://Assets/Images/addition_symbol.png" id="1_m76ou"]
+[ext_resource type="Texture2D" uid="uid://mj2lxfq73u4a" path="res://Assets/2d/panel2.png" id="1_t0rqk"]
 [ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="2_uc5mq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tjsny"]
+texture = ExtResource("1_t0rqk")
 
 [sub_resource type="LabelSettings" id="LabelSettings_x3fn3"]
 font_size = 32
@@ -11,6 +15,8 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_s64m2"]
 color = Color(0.862745, 0.972549, 0, 1)
+grow_begin = -5.0
+grow_end = -10.0
 thickness = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_8n5kh"]
@@ -21,6 +27,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="ItemContainer" type="PanelContainer"]
 offset_right = 288.0
 offset_bottom = 180.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_tjsny")
 script = ExtResource("1_l00d4")
 item = ExtResource("2_uc5mq")
 
