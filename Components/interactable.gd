@@ -3,7 +3,7 @@ class_name Interactable
 
 signal mouse_entered
 signal mouse_exited
-signal click(sender : Interactable, event : InputEvent)
+signal click(sender : Interactable, event : InputEventMouseButton)
 
 @onready var detection: StaticBody3D = $Detection
 

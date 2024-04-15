@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=17 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
 [ext_resource type="PackedScene" uid="uid://c5mjbsl4ik7j" path="res://Components/CrastingStations/Anvil.tscn" id="2_2clwy"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_yfkln"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_slgsw"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_lb24i"]
+[ext_resource type="PackedScene" uid="uid://crmteu5r41k5y" path="res://Components/CrastingStations/waterpot.tscn" id="8_122nu"]
 [ext_resource type="Script" path="res://Test/StateChartHandler.gd" id="8_jiarc"]
+[ext_resource type="PackedScene" uid="uid://nweeuqqeqja1" path="res://Components/CrastingStations/furnace.tscn" id="9_2fqu1"]
 [ext_resource type="PackedScene" uid="uid://b0njyc3rld62q" path="res://Components/ItemNodes/item_node.tscn" id="9_ld4ro"]
 [ext_resource type="Resource" uid="uid://dsctg0xb0f3o" path="res://Components/Items/sword.tres" id="10_r5wn3"]
 
@@ -15,8 +17,6 @@
 albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jkj0f"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_6ebed"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ugyn7"]
 size = Vector3(2, 0.2, 2)
@@ -90,26 +90,6 @@ material_override = SubResource("StandardMaterial3D_cj68h")
 mesh = SubResource("PlaneMesh_jkj0f")
 skeleton = NodePath("../..")
 
-[node name="Furnace" type="MeshInstance3D" parent="Forge"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78866, 0.504201, -1.88462)
-mesh = SubResource("BoxMesh_6ebed")
-
-[node name="Label3D" type="Label3D" parent="Forge/Furnace"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
-billboard = 1
-text = "Furnace"
-font_size = 48
-
-[node name="Pot" type="MeshInstance3D" parent="Forge"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.275913, 0.342274, -1.86463)
-mesh = SubResource("BoxMesh_6ebed")
-
-[node name="Label3D" type="Label3D" parent="Forge/Pot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
-billboard = 1
-text = "Pot with cool water"
-font_size = 36
-
 [node name="Table" type="MeshInstance3D" parent="Forge"]
 transform = Transform3D(0.438984, 0, 0.545246, 0, 0.7, 0, -0.545246, 0, 0.438984, -1.28349, 0.635325, 0.139273)
 mesh = SubResource("BoxMesh_ugyn7")
@@ -139,6 +119,12 @@ mesh = SubResource("BoxMesh_off0k")
 [node name="Anvil" parent="Forge" instance=ExtResource("2_2clwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73308, 0.537726, -0.419029)
 
+[node name="Waterpot" parent="Forge" instance=ExtResource("8_122nu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.341069, 0.327101, -1.82028)
+
+[node name="Furnace" parent="Forge" instance=ExtResource("9_2fqu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.594, 0.624108, -1.87953)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)
 light_color = Color(0.831373, 0.831373, 0.831373, 1)
@@ -155,8 +141,10 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0817, 1.49307, -1.3063)
 item = ExtResource("10_r5wn3")
 
+[connection signal="state_entered" from="StateChart/DraggingState/Idle" to="StateChartHandler" method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/DraggingState/Dragging" to="StateChartHandler" method="_on_dragging_state_entered"]
 [connection signal="state_processing" from="StateChart/DraggingState/Dragging" to="StateChartHandler" method="_on_dragging_state_processing"]
-[connection signal="click" from="Forge/Anvil" to="StateChartHandler" method="_on_anvil_click"]
+[connection signal="click" from="Forge/Anvil" to="StateChartHandler" method="_on_station_click"]
+[connection signal="click" from="Forge/Waterpot" to="StateChartHandler" method="_on_station_click"]
+[connection signal="click" from="Forge/Furnace" to="StateChartHandler" method="_on_station_click"]
 [connection signal="click" from="ItemNode" to="StateChartHandler" method="_on_item_node_click"]
-
-[editable path="Forge/Anvil"]

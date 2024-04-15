@@ -10,8 +10,10 @@ class_name CraftingStation
 func get_item(item : ItemNode):
 	current_item = item
 	current_item.position = Vector3.ZERO
+	current_item.parent = self
 	pivot.add_child(item)
 
-func take_item() -> ItemNode:
+func take_item():
 	pivot.remove_child(current_item)
-	return current_item
+	current_item.parent = null
+	current_item = null

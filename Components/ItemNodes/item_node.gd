@@ -3,6 +3,8 @@ class_name ItemNode
 
 @export var item : Item
 
+var parent : CraftingStation
+
 var mesh : MeshInstance3D
 var outline : MeshInstance3D
 # Called when the node enters the scene tree for the first time.

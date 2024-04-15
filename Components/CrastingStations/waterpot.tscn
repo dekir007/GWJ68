@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://crmteu5r41k5y"]
+
+[ext_resource type="PackedScene" uid="uid://iy3xbvrb7dlr" path="res://Components/CrastingStations/crafting_station.tscn" id="1_23yuj"]
+[ext_resource type="Material" uid="uid://beukbvtgs1gec" path="res://Assets/materials/outline_material.tres" id="2_5p0wx"]
+[ext_resource type="Script" path="res://Components/CrastingStations/waterpot.gd" id="2_qla6g"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_efhde"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_il8iw"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ptc1t"]
+points = PackedVector3Array(-0.3, -0.3, -0.3, 0.299986, 0.3, 0.3, 0.299986, 0.3, -0.3, 0.299986, -0.3, 0.3, -0.3, 0.3, 0.3, 0.299986, -0.3, -0.3, -0.3, -0.3, 0.3, -0.3, 0.3, -0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y8x2x"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6ka04"]
+_surfaces = [{
+"aabb": AABB(-0.317321, -0.317321, -0.317321, 0.634641, 0.634651, 0.634651),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 171, 170, 42, 63, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 0, 171, 170, 170, 62, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 128, 63, 171, 170, 170, 62, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 171, 170, 42, 63, 0, 0, 0, 63, 0, 0, 128, 63, 0, 0, 0, 63, 171, 170, 170, 62, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 171, 170, 42, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 4, 0, 2, 0, 2, 0, 4, 0, 6, 0, 1, 0, 5, 0, 3, 0, 3, 0, 5, 0, 7, 0, 8, 0, 12, 0, 10, 0, 10, 0, 12, 0, 14, 0, 9, 0, 13, 0, 11, 0, 11, 0, 13, 0, 15, 0, 16, 0, 20, 0, 18, 0, 18, 0, 20, 0, 22, 0, 17, 0, 21, 0, 19, 0, 19, 0, 21, 0, 23, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray(214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 62, 214, 119, 162, 190, 214, 119, 162, 190, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 0, 0, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 255, 255, 0, 128, 255, 255, 255, 255, 0, 0, 0, 128, 255, 127, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191, 0, 128, 255, 255, 0, 0, 255, 191, 0, 128, 0, 0, 255, 255, 255, 191)
+}]
+
+[node name="Waterpot" instance=ExtResource("1_23yuj")]
+script = ExtResource("2_qla6g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection" index="0"]
+shape = SubResource("ConvexPolygonShape3D_ptc1t")
+
+[node name="CompoundState" type="Node" parent="StateChart" index="0"]
+script = ExtResource("3_efhde")
+initial_state = NodePath("NoItem")
+
+[node name="NoItem" type="Node" parent="StateChart/CompoundState" index="0"]
+script = ExtResource("4_il8iw")
+
+[node name="HatItem" type="Node" parent="StateChart/CompoundState" index="1"]
+script = ExtResource("4_il8iw")
+
+[node name="Pivot" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.384933, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="3"]
+mesh = SubResource("BoxMesh_y8x2x")
+
+[node name="Outline" type="MeshInstance3D" parent="MeshInstance3D" index="0"]
+material_override = ExtResource("2_5p0wx")
+mesh = SubResource("ArrayMesh_6ka04")
+
+[node name="Label3D" type="Label3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
+billboard = 1
+text = "Pot with cool water"
+font_size = 36
