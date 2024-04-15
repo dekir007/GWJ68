@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://4h7p8m5a45u2"]
+
+[ext_resource type="Script" path="res://Components/interactable.gd" id="1_doe5r"]
+
+[node name="Interactable" type="Node3D"]
+script = ExtResource("1_doe5r")
+
+[node name="Detection" type="StaticBody3D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[connection signal="input_event" from="Detection" to="." method="_on_detection_input_event"]
+[connection signal="mouse_entered" from="Detection" to="." method="_on_detection_mouse_entered"]
+[connection signal="mouse_exited" from="Detection" to="." method="_on_detection_mouse_exited"]

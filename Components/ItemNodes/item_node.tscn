@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0njyc3rld62q"]
+
+[ext_resource type="Script" path="res://Components/ItemNodes/item_node.gd" id="1_6ykqd"]
+[ext_resource type="PackedScene" uid="uid://4h7p8m5a45u2" path="res://Components/interactable.tscn" id="1_kxywn"]
+
+[node name="ItemNode" instance=ExtResource("1_kxywn")]
+script = ExtResource("1_6ykqd")
+item = null

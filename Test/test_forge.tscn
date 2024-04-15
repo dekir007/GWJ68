@@ -1,8 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=16 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
+[ext_resource type="PackedScene" uid="uid://c5mjbsl4ik7j" path="res://Components/CrastingStations/Anvil.tscn" id="2_2clwy"]
 [ext_resource type="PackedScene" uid="uid://yqlu0ag3fia0" path="res://Components/UI/equipment_distribution.tscn" id="2_6xpmr"]
-[ext_resource type="Script" path="res://Test/Anvil.gd" id="2_lg22w"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_2w87d"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_yfkln"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_slgsw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_lb24i"]
+[ext_resource type="Script" path="res://Test/StateChartHandler.gd" id="8_jiarc"]
+[ext_resource type="PackedScene" uid="uid://b0njyc3rld62q" path="res://Components/ItemNodes/item_node.tscn" id="9_ld4ro"]
+[ext_resource type="Resource" uid="uid://dsctg0xb0f3o" path="res://Components/Items/sword.tres" id="10_r5wn3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cj68h"]
 albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
@@ -11,19 +18,40 @@ albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_6ebed"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_off0k"]
-size = Vector3(0.2, 0.2, 0.2)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7kmkl"]
-data = PackedVector3Array(-0.1, 0.1, 0.1, 0.1, 0.1, 0.1, -0.1, -0.1, 0.1, 0.1, 0.1, 0.1, 0.1, -0.1, 0.1, -0.1, -0.1, 0.1, 0.1, 0.1, -0.1, -0.1, 0.1, -0.1, 0.1, -0.1, -0.1, -0.1, 0.1, -0.1, -0.1, -0.1, -0.1, 0.1, -0.1, -0.1, 0.1, 0.1, 0.1, 0.1, 0.1, -0.1, 0.1, -0.1, 0.1, 0.1, 0.1, -0.1, 0.1, -0.1, -0.1, 0.1, -0.1, 0.1, -0.1, 0.1, -0.1, -0.1, 0.1, 0.1, -0.1, -0.1, -0.1, -0.1, 0.1, 0.1, -0.1, -0.1, 0.1, -0.1, -0.1, -0.1, 0.1, 0.1, 0.1, -0.1, 0.1, 0.1, 0.1, 0.1, -0.1, -0.1, 0.1, 0.1, -0.1, 0.1, -0.1, 0.1, 0.1, -0.1, -0.1, -0.1, 0.1, 0.1, -0.1, 0.1, -0.1, -0.1, -0.1, 0.1, -0.1, 0.1, 0.1, -0.1, -0.1, -0.1, -0.1, -0.1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_igrmr"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_ugyn7"]
 size = Vector3(2, 0.2, 2)
 
+[sub_resource type="BoxMesh" id="BoxMesh_off0k"]
+size = Vector3(0.2, 0.2, 0.2)
+
 [node name="TestForge" type="Node3D"]
 script = ExtResource("1_kefk8")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("4_2w87d")
+
+[node name="DraggingState" type="Node" parent="StateChart"]
+script = ExtResource("5_yfkln")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/DraggingState"]
+script = ExtResource("6_slgsw")
+
+[node name="Transition" type="Node" parent="StateChart/DraggingState/Idle"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../Dragging")
+event = &"grabbed"
+
+[node name="Dragging" type="Node" parent="StateChart/DraggingState"]
+script = ExtResource("6_slgsw")
+
+[node name="Transition" type="Node" parent="StateChart/DraggingState/Dragging"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../Idle")
+event = &"released"
+
+[node name="StateChartHandler" type="Node" parent="."]
+script = ExtResource("8_jiarc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.731354, 0.327512, -0.598212, 0, 0.877146, 0.480224, 0.681998, -0.351213, 0.641504, 0.081609, 1.53411, -0.177784)
@@ -72,39 +100,6 @@ billboard = 1
 text = "Furnace"
 font_size = 48
 
-[node name="Anvil" type="MeshInstance3D" parent="Forge"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 1.58624, 0.342274, -0.320698)
-mesh = SubResource("BoxMesh_6ebed")
-script = ExtResource("2_lg22w")
-
-[node name="Label3D" type="Label3D" parent="Forge/Anvil"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
-billboard = 1
-text = "Anvil"
-font_size = 36
-
-[node name="ItemPivot" type="Node3D" parent="Forge/Anvil"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.599287, 0)
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Forge/Anvil/ItemPivot"]
-transform = Transform3D(0.348, 0.070189, -0.352093, 0.062732, 0.470921, 0.15588, 0.353497, -0.152668, 0.318955, 0, 0, 0)
-mesh = SubResource("BoxMesh_off0k")
-
-[node name="Area3D" type="StaticBody3D" parent="Forge/Anvil/ItemPivot/MeshInstance3D2"]
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Forge/Anvil/ItemPivot/MeshInstance3D2/Area3D"]
-transform = Transform3D(1, -4.47035e-08, 2.98023e-08, -1.49012e-08, 1, 1.19209e-07, 2.98023e-08, 2.98023e-08, 1, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_7kmkl")
-
-[node name="Detection" type="StaticBody3D" parent="Forge/Anvil"]
-collision_layer = 128
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Forge/Anvil/Detection"]
-shape = SubResource("BoxShape3D_igrmr")
-
 [node name="Pot" type="MeshInstance3D" parent="Forge"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0.275913, 0.342274, -1.86463)
 mesh = SubResource("BoxMesh_6ebed")
@@ -141,6 +136,9 @@ mesh = SubResource("BoxMesh_off0k")
 transform = Transform3D(-0.653847, -0.214101, -0.725704, -0.722975, 0.459651, 0.515779, 0.223142, 0.861906, -0.455331, 0.685765, 0.288464, 0.445624)
 mesh = SubResource("BoxMesh_off0k")
 
+[node name="Anvil" parent="Forge" instance=ExtResource("2_2clwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73308, 0.537726, -0.419029)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)
 light_color = Color(0.831373, 0.831373, 0.831373, 1)
@@ -153,5 +151,12 @@ light_energy = 10.0
 [node name="EquipmentDistribution" parent="." instance=ExtResource("2_6xpmr")]
 visible = false
 
-[connection signal="input_event" from="Forge/Anvil/ItemPivot/MeshInstance3D2/Area3D" to="Forge/Anvil" method="_on_area_3d_input_event"]
-[connection signal="input_event" from="Forge/Anvil/Detection" to="Forge/Anvil" method="_on_static_body_3d_input_event"]
+[node name="ItemNode" parent="." instance=ExtResource("9_ld4ro")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0817, 1.49307, -1.3063)
+item = ExtResource("10_r5wn3")
+
+[connection signal="state_processing" from="StateChart/DraggingState/Dragging" to="StateChartHandler" method="_on_dragging_state_processing"]
+[connection signal="click" from="Forge/Anvil" to="StateChartHandler" method="_on_anvil_click"]
+[connection signal="click" from="ItemNode" to="StateChartHandler" method="_on_item_node_click"]
+
+[editable path="Forge/Anvil"]
