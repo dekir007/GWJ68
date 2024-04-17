@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c8tfj0kyss2v8"]
+
+[ext_resource type="PackedScene" uid="uid://c3q5htflnhs87" path="res://Test/testsword.tscn" id="1_tujrr"]
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="2_w7bek"]
+
+[resource]
+script = ExtResource("2_w7bek")
+item_name = "Dagger"
+item_type = 1
+model = ExtResource("1_tujrr")
+quality = 1
+description = ""

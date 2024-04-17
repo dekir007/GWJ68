@@ -1,12 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cquxogvrslfew"]
+[gd_scene load_steps=8 format=3 uid="uid://cquxogvrslfew"]
 
+[ext_resource type="StyleBox" uid="uid://caem40fgw51us" path="res://Assets/styles and themes/panel_wood.tres" id="1_6wg2c"]
 [ext_resource type="Script" path="res://Components/UI/item_container.gd" id="1_l00d4"]
 [ext_resource type="Texture2D" uid="uid://5slhskoqilj1" path="res://Assets/Images/addition_symbol.png" id="1_m76ou"]
-[ext_resource type="Texture2D" uid="uid://mj2lxfq73u4a" path="res://Assets/2d/panel2.png" id="1_t0rqk"]
 [ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="2_uc5mq"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tjsny"]
-texture = ExtResource("1_t0rqk")
 
 [sub_resource type="LabelSettings" id="LabelSettings_x3fn3"]
 font_size = 32
@@ -27,29 +24,22 @@ outline_color = Color(0, 0, 0, 1)
 [node name="ItemContainer" type="PanelContainer"]
 offset_right = 288.0
 offset_bottom = 180.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_tjsny")
+theme_override_styles/panel = ExtResource("1_6wg2c")
 script = ExtResource("1_l00d4")
 item = ExtResource("2_uc5mq")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 15
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="Control2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Icon" type="TextureRect" parent="HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 2
@@ -59,16 +49,16 @@ texture = ExtResource("1_m76ou")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
-[node name="Header" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Header" type="Label" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Header"
@@ -76,11 +66,11 @@ label_settings = SubResource("LabelSettings_x3fn3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_s64m2")
 
-[node name="Description" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2

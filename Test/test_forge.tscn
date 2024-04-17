@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=20 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
 [ext_resource type="PackedScene" uid="uid://c5mjbsl4ik7j" path="res://Components/CrastingStations/Anvil.tscn" id="2_2clwy"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://Test/StateChartHandler.gd" id="8_jiarc"]
 [ext_resource type="PackedScene" uid="uid://nweeuqqeqja1" path="res://Components/CrastingStations/furnace.tscn" id="9_2fqu1"]
 [ext_resource type="PackedScene" uid="uid://b0njyc3rld62q" path="res://Components/ItemNodes/item_node.tscn" id="9_ld4ro"]
-[ext_resource type="Resource" uid="uid://dsctg0xb0f3o" path="res://Components/Items/sword.tres" id="10_r5wn3"]
+[ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="12_4tboe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cj68h"]
 albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
@@ -23,6 +23,67 @@ size = Vector3(2, 0.2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_off0k"]
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Animation" id="Animation_r2ahu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.081609, 1.53411, -0.177784)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.50091, -0.750491, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0tfyo"]
+resource_name = "to_anvil"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.081609, 1.53411, -0.177784), Vector3(0.838451, 1.55599, 0.362422)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.50091, -0.750491, 0), Vector3(-0.713239, -0.670413, 0.0795823)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_81j1f"]
+_data = {
+"RESET": SubResource("Animation_r2ahu"),
+"to_anvil": SubResource("Animation_0tfyo")
+}
 
 [node name="TestForge" type="Node3D"]
 script = ExtResource("1_kefk8")
@@ -54,7 +115,7 @@ event = &"released"
 script = ExtResource("8_jiarc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.731354, 0.327512, -0.598212, 0, 0.877146, 0.480224, 0.681998, -0.351213, 0.641504, 0.081609, 1.53411, -0.177784)
+transform = Transform3D(0.731354, 0.327512, -0.598212, 0, 0.877146, 0.480224, 0.681998, -0.351214, 0.641504, 0.081609, 1.53411, -0.177784)
 
 [node name="Forge" type="Node3D" parent="."]
 
@@ -138,8 +199,13 @@ light_energy = 10.0
 visible = false
 
 [node name="ItemNode" parent="." instance=ExtResource("9_ld4ro")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0817, 1.49307, -1.3063)
-item = ExtResource("10_r5wn3")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07974, 1.25908, -1.16589)
+item = ExtResource("12_4tboe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_81j1f")
+}
 
 [connection signal="state_entered" from="StateChart/DraggingState/Idle" to="StateChartHandler" method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/DraggingState/Dragging" to="StateChartHandler" method="_on_dragging_state_entered"]
