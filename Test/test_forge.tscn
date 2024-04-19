@@ -383,6 +383,7 @@ visible = false
 [node name="ItemNode" parent="." instance=ExtResource("9_ld4ro")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07974, 1.25908, -1.16589)
 item = ExtResource("12_4tboe")
+temperature = 1200.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

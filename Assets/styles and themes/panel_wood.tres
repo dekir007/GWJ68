@@ -1,10 +1,11 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://caem40fgw51us"]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cm3bg0xwsnqdp"]
 
-[ext_resource type="Texture2D" uid="uid://mj2lxfq73u4a" path="res://Assets/2d/panel2.png" id="1_6jo54"]
+[ext_resource type="Texture2D" uid="uid://cpcdk47or4enq" path="res://Assets/3rd party/ui/medieval game ui/panel 3.png" id="1_7hv30"]
 
 [resource]
-content_margin_left = 10.0
+content_margin_left = 15.0
 content_margin_top = 15.0
-content_margin_right = 10.0
+content_margin_right = 15.0
 content_margin_bottom = 15.0
-texture = ExtResource("1_6jo54")
+texture = ExtResource("1_7hv30")
+modulate_color = Color(1, 1, 1, 0.858824)
