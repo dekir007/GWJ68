@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c8tfj0kyss2v8"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://c8tfj0kyss2v8"]
 
+[ext_resource type="Texture2D" uid="uid://5svot2tjo5d8" path="res://Assets/3rd party/ui/equipment icons/Knives_03_R.png" id="1_f7hdy"]
 [ext_resource type="PackedScene" uid="uid://c3q5htflnhs87" path="res://Test/testsword.tscn" id="1_tujrr"]
 [ext_resource type="Script" path="res://Scripts/Item.gd" id="2_w7bek"]
 
 [resource]
 script = ExtResource("2_w7bek")
 item_name = "Dagger"
+icon = ExtResource("1_f7hdy")
 item_type = 1
 model = ExtResource("1_tujrr")
 quality = 1

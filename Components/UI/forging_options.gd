@@ -44,4 +44,5 @@ func _ready() -> void:
 
 func _on_clicked(new_item : Item):
 	chosen.emit(new_item)
+	print("chosen ", new_item)
 	queue_free()

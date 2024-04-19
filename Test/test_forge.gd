@@ -3,9 +3,13 @@ extends Node3D
 @onready var camera: Camera3D = $Camera3D
 @onready var equipment_distribution: CanvasLayer = $EquipmentDistribution
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hammer: Node3D = %Hammer
 
 var near_anvil : = false
 var tw : Tween
+
+func _ready() -> void:
+	hammer.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
@@ -36,4 +40,3 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				animation_player.play_backwards("to_anvil")
 				near_anvil = false
-

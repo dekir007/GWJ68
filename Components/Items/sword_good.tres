@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dsctg0xb0f3o"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dsctg0xb0f3o"]
 
-[ext_resource type="PackedScene" uid="uid://c3q5htflnhs87" path="res://Test/testsword.tscn" id="1_ol7a8"]
+[ext_resource type="Texture2D" uid="uid://buo8ri20xq7wb" path="res://Assets/3rd party/ui/equipment icons/Swords_08_R.png" id="1_2oyyh"]
 [ext_resource type="Script" path="res://Scripts/Item.gd" id="1_x52iu"]
+[ext_resource type="PackedScene" uid="uid://c38m6mdedukq" path="res://Test/testsword3.tscn" id="2_vlwon"]
 
 [resource]
 script = ExtResource("1_x52iu")
 item_name = "Sword"
+icon = ExtResource("1_2oyyh")
 item_type = 1
-model = ExtResource("1_ol7a8")
+model = ExtResource("2_vlwon")
 quality = 1
 description = ""

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=23 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
 [ext_resource type="PackedScene" uid="uid://c5mjbsl4ik7j" path="res://Components/CrastingStations/Anvil.tscn" id="2_2clwy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_2w87d"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_yfkln"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_slgsw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/animation_player_state.gd" id="6_xcldi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_lb24i"]
 [ext_resource type="PackedScene" uid="uid://crmteu5r41k5y" path="res://Components/CrastingStations/waterpot.tscn" id="8_122nu"]
 [ext_resource type="Script" path="res://Test/StateChartHandler.gd" id="8_jiarc"]
@@ -23,6 +24,50 @@ size = Vector3(2, 0.2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_off0k"]
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bc0ho"]
+radius = 0.1
+height = 1.0
+
+[sub_resource type="Animation" id="Animation_gkxnb"]
+resource_name = "HammerHit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Forge/Hammer:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Forge/Hammer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.73551, 1.12125, 0.238657), Vector3(1.73551, 1.12125, 0.238657)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Forge/Hammer:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.86606),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.69328, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_r2ahu"]
 length = 0.001
@@ -49,6 +94,42 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-0.50091, -0.750491, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Forge/Hammer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Forge/Hammer:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.73551, 1.12125, 0.238657)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Forge/Hammer:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_0tfyo"]
@@ -81,6 +162,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_81j1f"]
 _data = {
+"HammerHit": SubResource("Animation_gkxnb"),
 "RESET": SubResource("Animation_r2ahu"),
 "to_anvil": SubResource("Animation_0tfyo")
 }
@@ -88,31 +170,75 @@ _data = {
 [node name="TestForge" type="Node3D"]
 script = ExtResource("1_kefk8")
 
+[node name="StateChartHandler" type="Node" parent="."]
+script = ExtResource("8_jiarc")
+
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("4_2w87d")
 
-[node name="DraggingState" type="Node" parent="StateChart"]
+[node name="State" type="Node" parent="StateChart"]
 script = ExtResource("5_yfkln")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateChart/DraggingState"]
+[node name="Idle" type="Node" parent="StateChart/State"]
 script = ExtResource("6_slgsw")
 
-[node name="Transition" type="Node" parent="StateChart/DraggingState/Idle"]
+[node name="OnDrag" type="Node" parent="StateChart/State/Idle"]
 script = ExtResource("7_lb24i")
 to = NodePath("../../Dragging")
 event = &"grabbed"
 
-[node name="Dragging" type="Node" parent="StateChart/DraggingState"]
+[node name="OnStartForging" type="Node" parent="StateChart/State/Idle"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../ForgingCompound")
+event = &"start_forging"
+
+[node name="Dragging" type="Node" parent="StateChart/State"]
 script = ExtResource("6_slgsw")
 
-[node name="Transition" type="Node" parent="StateChart/DraggingState/Dragging"]
+[node name="StopDrag" type="Node" parent="StateChart/State/Dragging"]
 script = ExtResource("7_lb24i")
 to = NodePath("../../Idle")
 event = &"released"
 
-[node name="StateChartHandler" type="Node" parent="."]
-script = ExtResource("8_jiarc")
+[node name="ForgingCompound" type="Node" parent="StateChart/State"]
+script = ExtResource("5_yfkln")
+initial_state = NodePath("WaitHit")
+
+[node name="WaitHit" type="Node" parent="StateChart/State/ForgingCompound"]
+script = ExtResource("6_slgsw")
+
+[node name="OnForged" type="Node" parent="StateChart/State/ForgingCompound/WaitHit"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../Particles")
+event = &"forged"
+
+[node name="OnHit" type="Node" parent="StateChart/State/ForgingCompound/WaitHit"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../HammerHit")
+event = &"hammer_hit"
+
+[node name="HammerHit" type="Node" parent="StateChart/State/ForgingCompound"]
+script = ExtResource("6_xcldi")
+animation_player = NodePath("../../../../AnimationPlayer")
+
+[node name="Transition" type="Node" parent="StateChart/State/ForgingCompound/HammerHit"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../WaitHit")
+delay_seconds = 0.5
+
+[node name="OnForged" type="Node" parent="StateChart/State/ForgingCompound/HammerHit"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../Particles")
+event = &"forged"
+
+[node name="Particles" type="Node" parent="StateChart/State/ForgingCompound"]
+script = ExtResource("6_slgsw")
+
+[node name="Transition" type="Node" parent="StateChart/State/ForgingCompound/Particles"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../../Idle")
+delay_seconds = 1.2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.731354, 0.327512, -0.598212, 0, 0.877146, 0.480224, 0.681998, -0.351214, 0.641504, 0.081609, 1.53411, -0.177784)
@@ -178,6 +304,7 @@ transform = Transform3D(-0.653847, -0.214101, -0.725704, -0.722975, 0.459651, 0.
 mesh = SubResource("BoxMesh_off0k")
 
 [node name="Anvil" parent="Forge" instance=ExtResource("2_2clwy")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73308, 0.537726, -0.419029)
 
 [node name="Waterpot" parent="Forge" instance=ExtResource("8_122nu")]
@@ -185,6 +312,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.341069, 0.327101, -1.82028)
 
 [node name="Furnace" parent="Forge" instance=ExtResource("9_2fqu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.594, 0.624108, -1.87953)
+
+[node name="Hammer" type="Node3D" parent="Forge"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73551, 1.12125, 0.238657)
+
+[node name="Mesh" type="MeshInstance3D" parent="Forge/Hammer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.455778, 0)
+mesh = SubResource("CapsuleMesh_bc0ho")
+skeleton = NodePath("../../..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, 0.12941, -0.224144, 0, 0.866025, 0.5, 0.258819, -0.482963, 0.836516, 0, 0, 0)
@@ -207,10 +343,12 @@ libraries = {
 "": SubResource("AnimationLibrary_81j1f")
 }
 
-[connection signal="state_entered" from="StateChart/DraggingState/Idle" to="StateChartHandler" method="_on_idle_state_entered"]
-[connection signal="state_entered" from="StateChart/DraggingState/Dragging" to="StateChartHandler" method="_on_dragging_state_entered"]
-[connection signal="state_processing" from="StateChart/DraggingState/Dragging" to="StateChartHandler" method="_on_dragging_state_processing"]
-[connection signal="click" from="Forge/Anvil" to="StateChartHandler" method="_on_station_click"]
-[connection signal="click" from="Forge/Waterpot" to="StateChartHandler" method="_on_station_click"]
-[connection signal="click" from="Forge/Furnace" to="StateChartHandler" method="_on_station_click"]
-[connection signal="click" from="ItemNode" to="StateChartHandler" method="_on_item_node_click"]
+[connection signal="state_entered" from="StateChart/State/Idle" to="StateChartHandler" method="_on_idle_state_entered"]
+[connection signal="state_unhandled_input" from="StateChart/State/Idle" to="StateChartHandler" method="_on_idle_state_unhandled_input"]
+[connection signal="state_entered" from="StateChart/State/Dragging" to="StateChartHandler" method="_on_dragging_state_entered"]
+[connection signal="state_processing" from="StateChart/State/Dragging" to="StateChartHandler" method="_on_dragging_state_processing"]
+[connection signal="state_unhandled_input" from="StateChart/State/Dragging" to="StateChartHandler" method="_on_dragging_state_unhandled_input"]
+[connection signal="state_entered" from="StateChart/State/ForgingCompound" to="StateChartHandler" method="_on_forging_compound_state_entered"]
+[connection signal="state_entered" from="StateChart/State/ForgingCompound/WaitHit" to="StateChartHandler" method="_on_waiting_hit_state_entered"]
+[connection signal="state_unhandled_input" from="StateChart/State/ForgingCompound/WaitHit" to="StateChartHandler" method="_on_wait_hit_state_unhandled_input"]
+[connection signal="state_entered" from="StateChart/State/ForgingCompound/HammerHit" to="StateChartHandler" method="_on_hammer_hit_state_entered"]
