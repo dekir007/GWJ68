@@ -44,6 +44,14 @@ func create_meshes():
 	outline.rotation = mesh.rotation
 	add_child(outline)
 
+func get_state_for_forging():
+	if temperature < 1100:
+		return "Needs to be hotter"
+	elif temperature < 1500:
+		return "Can forge"
+	else:
+		return "Too hot (worse quality)"
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5mjbsl4ik7j"]
+[gd_scene load_steps=7 format=3 uid="uid://c5mjbsl4ik7j"]
 
 [ext_resource type="PackedScene" uid="uid://iy3xbvrb7dlr" path="res://Components/CrastingStations/crafting_station.tscn" id="1_l44n0"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="2_4s621"]
 [ext_resource type="Script" path="res://Components/CrastingStations/Anvil.gd" id="2_u1odc"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_gyo47"]
 [ext_resource type="Material" uid="uid://beukbvtgs1gec" path="res://Assets/materials/outline_material.tres" id="5_p4u28"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2okfw"]
@@ -30,16 +28,6 @@ script = ExtResource("2_u1odc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection" index="0"]
 shape = SubResource("ConvexPolygonShape3D_2okfw")
-
-[node name="CompoundState" type="Node" parent="StateChart" index="0"]
-script = ExtResource("2_4s621")
-initial_state = NodePath("NoItem")
-
-[node name="NoItem" type="Node" parent="StateChart/CompoundState" index="0"]
-script = ExtResource("3_gyo47")
-
-[node name="HasItem" type="Node" parent="StateChart/CompoundState" index="1"]
-script = ExtResource("3_gyo47")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="2"]
 mesh = SubResource("BoxMesh_vlwwm")

@@ -5,6 +5,7 @@ extends Node
 const RAY_LENGTH = 100
 
 const FORGING_OPTIONS = preload("res://Components/UI/forging_options.tscn")
+const TOOLTIP = preload("res://Components/UI/tooltip.tscn")
 
 @onready var state_chart : StateChart = $"../StateChart"
 @onready var camera : Camera3D = $"../Camera3D"
@@ -87,7 +88,11 @@ func _on_idle_state_unhandled_input(event: InputEvent) -> void:
 						new_item = _new_item
 						# start forging (clicking) 
 						)
-					pass # create form with 
+				else:
+					var tooltip = TOOLTIP.instantiate()
+					tooltip.item_node = item_node
+					add_child(tooltip)
+					pass # tooltip
 	pass # Replace with function body.
 
 #region dragging
