@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=22 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
 [ext_resource type="PackedScene" uid="uid://c5mjbsl4ik7j" path="res://Components/CrastingStations/Anvil.tscn" id="2_2clwy"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/animation_player_state.gd" id="6_xcldi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_lb24i"]
 [ext_resource type="PackedScene" uid="uid://crmteu5r41k5y" path="res://Components/CrastingStations/waterpot.tscn" id="8_122nu"]
+[ext_resource type="PackedScene" uid="uid://cl3tlfuhg5ij6" path="res://Components/table.tscn" id="8_dknt7"]
 [ext_resource type="Script" path="res://Test/StateChartHandler.gd" id="8_jiarc"]
 [ext_resource type="PackedScene" uid="uid://nweeuqqeqja1" path="res://Components/CrastingStations/furnace.tscn" id="9_2fqu1"]
 [ext_resource type="PackedScene" uid="uid://b0njyc3rld62q" path="res://Components/ItemNodes/item_node.tscn" id="9_ld4ro"]
@@ -18,12 +19,6 @@
 albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jkj0f"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ugyn7"]
-size = Vector3(2, 0.2, 2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_off0k"]
-size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bc0ho"]
 radius = 0.1
@@ -193,6 +188,11 @@ script = ExtResource("7_lb24i")
 to = NodePath("../../ForgingCompound")
 event = &"start_forging"
 
+[node name="OnStartDistribution" type="Node" parent="StateChart/State/Idle"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../Distribution")
+event = &"start_distribution"
+
 [node name="Dragging" type="Node" parent="StateChart/State"]
 script = ExtResource("6_slgsw")
 
@@ -240,6 +240,14 @@ script = ExtResource("7_lb24i")
 to = NodePath("../../../Idle")
 delay_seconds = 1.2
 
+[node name="Distribution" type="Node" parent="StateChart/State"]
+script = ExtResource("6_slgsw")
+
+[node name="OnEnd" type="Node" parent="StateChart/State/Distribution"]
+script = ExtResource("7_lb24i")
+to = NodePath("../../Idle")
+event = &"end_distribution"
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.731354, 0.327512, -0.598212, 0, 0.877146, 0.480224, 0.681998, -0.351214, 0.641504, 0.081609, 1.53411, -0.177784)
 
@@ -277,31 +285,8 @@ material_override = SubResource("StandardMaterial3D_cj68h")
 mesh = SubResource("PlaneMesh_jkj0f")
 skeleton = NodePath("../..")
 
-[node name="Table" type="MeshInstance3D" parent="Forge"]
-transform = Transform3D(0.438984, 0, 0.545246, 0, 0.7, 0, -0.545246, 0, 0.438984, -1.28349, 0.635325, 0.139273)
-mesh = SubResource("BoxMesh_ugyn7")
-
-[node name="Label3D" type="Label3D" parent="Forge/Table"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
-billboard = 1
-text = "Table with equipment"
-font_size = 36
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Forge/Table"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.444914, 0.288464, 0)
-mesh = SubResource("BoxMesh_off0k")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Forge/Table"]
-transform = Transform3D(0.696001, 0.140378, -0.704186, 0.125464, 0.941841, 0.31176, 0.706995, -0.305335, 0.63791, 0, 0.288464, -0.475673)
-mesh = SubResource("BoxMesh_off0k")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Forge/Table"]
-transform = Transform3D(0.308233, 0.586425, -0.749065, -0.888082, 0.459651, -0.00558703, 0.341032, 0.666953, 0.662473, 0, 0.288464, 0.445624)
-mesh = SubResource("BoxMesh_off0k")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Forge/Table"]
-transform = Transform3D(-0.653847, -0.214101, -0.725704, -0.722975, 0.459651, 0.515779, 0.223142, 0.861906, -0.455331, 0.685765, 0.288464, 0.445624)
-mesh = SubResource("BoxMesh_off0k")
+[node name="Table" parent="Forge" instance=ExtResource("8_dknt7")]
+transform = Transform3D(0.438984, 0, 0.545246, 0, 0.7, 0, -0.545246, 0, 0.438984, -1.41147, 0.44669, 0.31739)
 
 [node name="Anvil" parent="Forge" instance=ExtResource("2_2clwy")]
 unique_name_in_owner = true
@@ -352,3 +337,5 @@ libraries = {
 [connection signal="state_entered" from="StateChart/State/ForgingCompound/WaitHit" to="StateChartHandler" method="_on_waiting_hit_state_entered"]
 [connection signal="state_unhandled_input" from="StateChart/State/ForgingCompound/WaitHit" to="StateChartHandler" method="_on_wait_hit_state_unhandled_input"]
 [connection signal="state_entered" from="StateChart/State/ForgingCompound/HammerHit" to="StateChartHandler" method="_on_hammer_hit_state_entered"]
+[connection signal="state_entered" from="StateChart/State/Distribution" to="StateChartHandler" method="_on_distribution_state_entered"]
+[connection signal="state_unhandled_input" from="StateChart/State/Distribution" to="StateChartHandler" method="_on_distribution_state_unhandled_input"]

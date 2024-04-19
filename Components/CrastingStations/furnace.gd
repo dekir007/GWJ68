@@ -24,5 +24,5 @@ func _on_has_item_state_processing(delta: float) -> void:
 		current_item.temperature += 150 * delta
 	else: 
 		# TODO play "too hot"
-		current_item.temperature += 50 * delta
+		current_item.temperature += 25 * delta
 	pass # Replace with function body.

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl3tlfuhg5ij6"]
+
+[ext_resource type="Script" path="res://Components/table.gd" id="1_lg7hh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ugyn7"]
+size = Vector3(2, 0.2, 2)
+
+[node name="Table" type="Node3D"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+script = ExtResource("1_lg7hh")
+
+[node name="Table" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ugyn7")
+skeleton = NodePath("../..")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 1.08767, 0)
+billboard = 1
+text = "Table with equipment"
+font_size = 36
+
+[node name="Pivots" type="Node3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.278163, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.71979, 0.278163, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="Pivots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.717439, 0.278163, 0)

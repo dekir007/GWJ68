@@ -11,11 +11,13 @@ const TOOLTIP = preload("res://Components/UI/tooltip.tscn")
 @onready var camera : Camera3D = $"../Camera3D"
 @onready var forge : = get_parent()
 @onready var anvil: Anvil = %Anvil
+@onready var table: Node3D = $"../Forge/Table"
 
 var current_item : ItemNode
 var new_item : Item
 
 var clicked : int = 0
+var tw : Tween
 
 func ray_cast(collision_mask = 2**7, exclude = []) -> Dictionary:
 	var space_state = forge.get_world_3d().direct_space_state
@@ -60,6 +62,29 @@ func _on_idle_state_entered() -> void:
 	print("idle")
 	
 func _on_idle_state_unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F and !forge.near_anvil and (tw == null or !tw.is_running()):
+			# yes, this code should be refactored
+			tw = get_tree().create_tween()
+			var final_val #= camera_3d.rotation_degrees.y 
+			var c : Callable
+			final_val = 140
+			state_chart.send_event("start_distribution")
+			c = Callable(func():
+					forge.equipment_distribution.show()
+					)
+			tw.tween_property(camera, "rotation_degrees:y", final_val, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			tw.tween_callback(c)
+			
+			
+		elif event.keycode == KEY_E:
+			if !forge.near_anvil:
+				forge.animation_player.play("to_anvil")
+				forge.near_anvil = true
+			else:
+				forge.animation_player.play_backwards("to_anvil")
+				forge.near_anvil = false
+	
 	if event is InputEventMouseButton:
 		event = event as InputEventMouseButton
 		print(event)
@@ -91,6 +116,10 @@ func _on_idle_state_unhandled_input(event: InputEvent) -> void:
 				else:
 					var tooltip = TOOLTIP.instantiate()
 					tooltip.item_node = item_node
+					tooltip.put_away.connect(func(_item_node):
+						forge.items_on_table.append(_item_node)
+						table.put_item(_item_node)
+						)
 					add_child(tooltip)
 					pass # tooltip
 	pass # Replace with function body.
@@ -158,3 +187,26 @@ func _on_wait_hit_state_unhandled_input(event: InputEvent) -> void:
 	pass # Replace with function body.
 
 #endregion
+
+
+func _on_distribution_state_entered() -> void:
+	forge.equipment_distribution.get_items(forge.items_on_table.map(func(x): return x.item))
+	pass # Replace with function body.
+
+
+func _on_distribution_state_unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_F and !forge.near_anvil and (tw == null or !tw.is_running()):
+			# yes, this code should be refactored
+			tw = get_tree().create_tween()
+			var final_val #= camera_3d.rotation_degrees.y 
+			var c : Callable
+			final_val = -43
+			state_chart.send_event("end_distribution")
+			tw.set_parallel(true)
+			c = Callable(func():
+					forge.equipment_distribution.hide()
+					)
+			tw.tween_property(camera, "rotation_degrees:y", final_val, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			tw.tween_callback(c)
+	pass # Replace with function body.
