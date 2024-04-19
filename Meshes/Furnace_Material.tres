@@ -1,0 +1,59 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://du6ayhe2yr0i7"]
+
+[ext_resource type="Texture2D" uid="uid://drxcay2s8ps35" path="res://Textures/SM_Furnace1_lambert1_Normal.png" id="1_0wpmb"]
+[ext_resource type="Texture2D" uid="uid://kp35nqnqmdnh" path="res://Textures/SM_Furnace1_lambert1_BaseColor.png" id="2_nmye2"]
+[ext_resource type="Texture2D" uid="uid://c0e01df4am021" path="res://Textures/SM_Furnace1_lambert1_OcclusionRoughnessMetallic.png" id="3_mvh1w"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_o13ri"]
+texture = ExtResource("1_0wpmb")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_is30v"]
+texture = ExtResource("2_nmye2")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_jrtoh"]
+expanded_output_ports = [0]
+texture = ExtResource("3_mvh1w")
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_3;
+uniform sampler2D tex_frg_4;
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, UV);
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, UV);
+	float n_out4p1 = n_out4p0.r;
+	float n_out4p2 = n_out4p0.g;
+	float n_out4p3 = n_out4p0.b;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	METALLIC = n_out4p3;
+	ROUGHNESS = n_out4p2;
+	AO = n_out4p1;
+	NORMAL = vec3(n_out2p0.xyz);
+
+
+}
+"
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_o13ri")
+nodes/fragment/2/position = Vector2(-20, 340)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_is30v")
+nodes/fragment/3/position = Vector2(-80, -40)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_jrtoh")
+nodes/fragment/4/position = Vector2(-500, 100)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 8, 3, 0, 0, 0, 4, 1, 0, 6, 4, 2, 0, 3, 4, 3, 0, 2)

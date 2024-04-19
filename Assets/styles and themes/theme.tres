@@ -3,7 +3,7 @@
 [ext_resource type="StyleBox" uid="uid://bq8010m2i5g7h" path="res://Assets/styles and themes/hover.tres" id="1_figt6"]
 [ext_resource type="StyleBox" uid="uid://cl4m50yeauh7i" path="res://Assets/styles and themes/normal.tres" id="2_epeff"]
 [ext_resource type="StyleBox" uid="uid://bkaa48gp3mrg2" path="res://Assets/styles and themes/pressed.tres" id="3_iug8y"]
-[ext_resource type="StyleBox" uid="uid://cm3bg0xwsnqdp" path="res://Assets/styles and themes/panel.tres" id="4_gufhl"]
+[ext_resource type="StyleBox" uid="uid://cm3bg0xwsnqdp" path="res://Assets/styles and themes/panel_wood.tres" id="4_gufhl"]
 
 [resource]
 Button/font_sizes/font_size = 32

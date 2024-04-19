@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbgbw6exl6n7y"]
+
+[ext_resource type="Script" path="res://Components/UI/forging_options.gd" id="1_lnfue"]
+[ext_resource type="Texture2D" uid="uid://c4i0k6ji0urdt" path="res://Assets/3rd party/ui/medieval game ui/close button.png" id="3_svveg"]
+[ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="5_schus"]
+
+[node name="ForgingOptions" type="CanvasLayer"]
+script = ExtResource("1_lnfue")
+item = ExtResource("5_schus")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.0
+offset_top = -167.0
+offset_right = 194.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 25
+
+[node name="Options" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="CloseButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(30, 30)
+offset_left = 772.0
+offset_top = 219.0
+offset_right = 802.0
+offset_bottom = 249.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("3_svveg")
+texture_pressed = ExtResource("3_svveg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="mouse_entered" from="CloseButton" to="." method="_on_close_button_mouse_entered"]
+[connection signal="mouse_exited" from="CloseButton" to="." method="_on_close_button_mouse_exited"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

@@ -6,3 +6,21 @@
 [node name="PauseMenu" instance=ExtResource("1_o7f7w")]
 options_packed_scene = ExtResource("2_fcdwj")
 main_menu_scene = "res://Scenes/Menus/MainMenu/MainMenuWithAnimations.tscn"
+
+[node name="BackgroundColor" parent="Control" index="0"]
+visible = false
+
+[node name="ResumeButton" parent="Control/MenuContainer/VBoxContainer/MenuButtons" index="0"]
+custom_minimum_size = Vector2(250, 80)
+
+[node name="RestartButton" parent="Control/MenuContainer/VBoxContainer/MenuButtons" index="1"]
+custom_minimum_size = Vector2(250, 80)
+
+[node name="OptionsButton" parent="Control/MenuContainer/VBoxContainer/MenuButtons" index="2"]
+custom_minimum_size = Vector2(250, 80)
+
+[node name="MainMenuButton" parent="Control/MenuContainer/VBoxContainer/MenuButtons" index="3"]
+custom_minimum_size = Vector2(250, 80)
+
+[node name="ExitButton" parent="Control/MenuContainer/VBoxContainer/MenuButtons" index="4"]
+custom_minimum_size = Vector2(250, 80)

@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://crmteu5r41k5y"]
+[gd_scene load_steps=7 format=3 uid="uid://crmteu5r41k5y"]
 
 [ext_resource type="PackedScene" uid="uid://iy3xbvrb7dlr" path="res://Components/CrastingStations/crafting_station.tscn" id="1_23yuj"]
 [ext_resource type="Material" uid="uid://beukbvtgs1gec" path="res://Assets/materials/outline_material.tres" id="2_5p0wx"]
 [ext_resource type="Script" path="res://Components/CrastingStations/waterpot.gd" id="2_qla6g"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_efhde"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_il8iw"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ptc1t"]
 points = PackedVector3Array(-0.3, -0.3, -0.3, 0.299986, 0.3, 0.3, 0.299986, 0.3, -0.3, 0.299986, -0.3, 0.3, -0.3, 0.3, 0.3, 0.299986, -0.3, -0.3, -0.3, -0.3, 0.3, -0.3, 0.3, -0.3)
@@ -31,16 +29,6 @@ script = ExtResource("2_qla6g")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detection" index="0"]
 shape = SubResource("ConvexPolygonShape3D_ptc1t")
 
-[node name="CompoundState" type="Node" parent="StateChart" index="0"]
-script = ExtResource("3_efhde")
-initial_state = NodePath("NoItem")
-
-[node name="NoItem" type="Node" parent="StateChart/CompoundState" index="0"]
-script = ExtResource("4_il8iw")
-
-[node name="HatItem" type="Node" parent="StateChart/CompoundState" index="1"]
-script = ExtResource("4_il8iw")
-
 [node name="Pivot" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.384933, 0)
 
@@ -56,3 +44,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08767, 0)
 billboard = 1
 text = "Pot with cool water"
 font_size = 36
+
+[connection signal="state_processing" from="StateChart/CompoundState/HasItem" to="." method="_on_has_item_state_processing"]

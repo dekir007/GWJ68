@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cu5bplidpgaf1"]
+
+[ext_resource type="PackedScene" uid="uid://c3q5htflnhs87" path="res://Test/testsword.tscn" id="1_8vwkn"]
+[ext_resource type="Texture2D" uid="uid://bd5c1ruap0rg6" path="res://Assets/3rd party/ui/equipment icons/Swords_07_R.png" id="1_v0w83"]
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="2_u4n5q"]
+
+[resource]
+script = ExtResource("2_u4n5q")
+item_name = "Sword"
+icon = ExtResource("1_v0w83")
+item_type = 1
+model = ExtResource("1_8vwkn")
+quality = 0
+description = ""

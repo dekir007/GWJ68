@@ -1,12 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cquxogvrslfew"]
+[gd_scene load_steps=8 format=3 uid="uid://cquxogvrslfew"]
 
 [ext_resource type="Script" path="res://Components/UI/item_container.gd" id="1_l00d4"]
 [ext_resource type="Texture2D" uid="uid://5slhskoqilj1" path="res://Assets/Images/addition_symbol.png" id="1_m76ou"]
-[ext_resource type="Texture2D" uid="uid://mj2lxfq73u4a" path="res://Assets/2d/panel2.png" id="1_t0rqk"]
-[ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="2_uc5mq"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tjsny"]
-texture = ExtResource("1_t0rqk")
+[ext_resource type="StyleBox" uid="uid://caem40fgw51us" path="res://Assets/styles and themes/panel.tres" id="1_mubxu"]
+[ext_resource type="Resource" uid="uid://cgbddomglpyyx" path="res://Components/Items/dagger_bad.tres" id="3_m2wg1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_x3fn3"]
 font_size = 32
@@ -27,16 +24,16 @@ outline_color = Color(0, 0, 0, 1)
 [node name="ItemContainer" type="PanelContainer"]
 offset_right = 288.0
 offset_bottom = 180.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_tjsny")
+theme_override_styles/panel = ExtResource("1_mubxu")
 script = ExtResource("1_l00d4")
-item = ExtResource("2_uc5mq")
+item = ExtResource("3_m2wg1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2

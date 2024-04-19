@@ -1,6 +1,10 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bq8010m2i5g7h"]
 
-[ext_resource type="Texture2D" uid="uid://5rgjcq1wyqqw" path="res://Assets/2d/hover.png" id="1_8vh5g"]
+[ext_resource type="Texture2D" uid="uid://4bcuui783mox" path="res://Assets/3rd party/ui/medieval game ui/sign 5.png" id="1_bk7rc"]
 
 [resource]
-texture = ExtResource("1_8vh5g")
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+texture = ExtResource("1_bk7rc")

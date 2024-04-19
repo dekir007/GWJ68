@@ -7,6 +7,10 @@ signal click(sender : Interactable, event : InputEventMouseButton)
 
 @onready var detection: StaticBody3D = $Detection
 
+var rid : RID :
+	get:
+		return detection.get_rid()
+
 func _on_detection_mouse_entered() -> void:
 	#print("mouse_entered")
 	mouse_entered.emit()
