@@ -4,6 +4,7 @@ extends Node3D
 @onready var equipment_distribution: CanvasLayer = $EquipmentDistribution
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hammer: Node3D = %Hammer
+@onready var background_music: AudioStreamPlayer = $BackgroundMusic
 
 var items_on_table : Array[ItemNode] = []
 

@@ -47,10 +47,13 @@ func _on_hammer_hit_state_entered() -> void:
 	if clicked == 3:
 		print("3")
 		state_chart.send_event("forged")
-		
-		anvil.current_item.set_item(new_item)
-		new_item = null
+	
 		pass # done
+
+## after particles state
+func _on_transition_taken() -> void:
+	anvil.current_item.set_item(new_item)
+	new_item = null
 
 func _on_forging_compound_state_entered() -> void:
 	clicked = 0
@@ -210,3 +213,4 @@ func _on_distribution_state_unhandled_input(event: InputEvent) -> void:
 			tw.tween_property(camera, "rotation_degrees:y", final_val, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 			tw.tween_callback(c)
 	pass # Replace with function body.
+
