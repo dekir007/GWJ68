@@ -1,12 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbgbw6exl6n7y"]
+[gd_scene load_steps=3 format=3 uid="uid://bbgbw6exl6n7y"]
 
 [ext_resource type="Script" path="res://Components/UI/forging_options.gd" id="1_lnfue"]
 [ext_resource type="Texture2D" uid="uid://c4i0k6ji0urdt" path="res://Assets/3rd party/ui/medieval game ui/close button.png" id="3_svveg"]
-[ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="5_schus"]
 
 [node name="ForgingOptions" type="CanvasLayer"]
 script = ExtResource("1_lnfue")
-item = ExtResource("5_schus")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 8

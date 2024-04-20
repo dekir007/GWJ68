@@ -108,7 +108,7 @@ func _on_idle_state_unhandled_input(event: InputEvent) -> void:
 				if item_node.parent is Anvil and forge.near_anvil:
 					var forging_options = FORGING_OPTIONS.instantiate()
 					#forging_options.position = event.position
-					forging_options.item = item_node.item
+					forging_options.item_node = item_node
 					add_child(forging_options)
 					forging_options.chosen.connect(func(_new_item : Item):
 						pass # TODO
@@ -152,6 +152,9 @@ func _on_dragging_state_unhandled_input(event: InputEvent) -> void:
 				else:
 					var station = res["collider"].get_parent()
 					state_chart.send_event("released")
+					if !(station is CraftingStation):
+						current_item.position = Vector3.ZERO
+						return
 					if station.current_item == null:
 						if current_item.parent != null:
 							# remove from old station
@@ -193,9 +196,13 @@ func _on_wait_hit_state_unhandled_input(event: InputEvent) -> void:
 
 
 func _on_distribution_state_entered() -> void:
+	forge.get_ingots_layer.hide()
 	forge.equipment_distribution.get_items(forge.items_on_table.map(func(x): return x.item))
 	pass # Replace with function body.
 
+func _on_distribution_state_exited() -> void:
+	forge.get_ingots_layer.show()
+	pass
 
 func _on_distribution_state_unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
