@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4j3w6578d7ep"]
+[gd_scene load_steps=13 format=3 uid="uid://c4j3w6578d7ep"]
 
 [ext_resource type="Script" path="res://Components/GameManager.gd" id="1_eqmcd"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_4023w"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://c5w0sovmd885s" path="res://Assets/fonts/Lora.ttf" id="8_avt5j"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="9_cac7i"]
 [ext_resource type="PackedScene" uid="uid://c838u8htin5xj" path="res://Components/scenario_manager.tscn" id="9_ii0cx"]
+[ext_resource type="PackedScene" uid="uid://bkibj8u0mie7y" path="res://Test/test_forge.tscn" id="10_bfvrf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8auli"]
 bg_color = Color(0, 0, 0, 1)
@@ -20,6 +21,11 @@ font_size = 50
 [node name="GameManager" type="Node" node_paths=PackedStringArray("scenario_manager")]
 script = ExtResource("1_eqmcd")
 scenario_manager = NodePath("ScenarioManager")
+
+[node name="TestForge" parent="." instance=ExtResource("10_bfvrf")]
+
+[node name="Camera3D" parent="TestForge" index="2"]
+transform = Transform3D(0.731354, 0.327512, -0.598212, 0, 0.877146, 0.480224, 0.681998, -0.351214, 0.641504, 0.081609, 1.53411, -0.177784)
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_4023w")
@@ -122,72 +128,52 @@ script = ExtResource("5_tenab")
 [node name="Paused" type="Node" parent="StateChart/ParallelState/PausedState"]
 script = ExtResource("5_tenab")
 
-[node name="DebugPanel" type="PanelContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="DebugPanel" type="PanelContainer" parent="CanvasLayer"]
 offset_left = 6.0
 offset_top = 22.0
 offset_right = 391.0
 offset_bottom = 435.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DebugPanel"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DebugPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
 text = "Debugger"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="DebugPanel/VBoxContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
 text = "End Forging Time"
 
-[node name="ServeCustomerButton" type="Button" parent="DebugPanel/VBoxContainer"]
+[node name="ServeCustomerButton" type="Button" parent="CanvasLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
 text = "Serve Customer"
 
-[node name="Label2" type="Label" parent="DebugPanel/VBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
 text = "Quality"
 horizontal_alignment = 1
 
-[node name="QualityButton" type="OptionButton" parent="DebugPanel/VBoxContainer"]
+[node name="QualityButton" type="OptionButton" parent="CanvasLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
-item_count = 8
-selected = 1
-popup/item_0/text = "None"
-popup/item_0/id = 0
-popup/item_0/disabled = true
-popup/item_1/text = "Unusable"
-popup/item_1/id = 1
-popup/item_2/text = "Shoddy"
-popup/item_2/id = 2
-popup/item_3/text = "Poor"
-popup/item_3/id = 3
-popup/item_4/text = "Ok"
-popup/item_4/id = 4
-popup/item_5/text = "Good"
-popup/item_5/id = 5
-popup/item_6/text = "Great"
-popup/item_6/id = 6
-popup/item_7/text = "Perfect"
-popup/item_7/id = 7
-
-[node name="Label3" type="Label" parent="DebugPanel/VBoxContainer"]
-layout_mode = 2
-text = "Equipment Type"
-horizontal_alignment = 1
-
-[node name="TypeButton" type="OptionButton" parent="DebugPanel/VBoxContainer"]
-layout_mode = 2
-item_count = 1
+item_count = 3
 selected = 0
-popup/item_0/text = "Sword"
+popup/item_0/text = "Bad"
 popup/item_0/id = 0
+popup/item_1/text = "Good"
+popup/item_1/id = 1
+popup/item_2/text = "Perfect"
+popup/item_2/id = 2
 
-[node name="RefuseCustomerButton" type="Button" parent="DebugPanel/VBoxContainer"]
+[node name="RefuseCustomerButton" type="Button" parent="CanvasLayer/DebugPanel/VBoxContainer"]
 layout_mode = 2
 text = "Refuse Customer"
 
-[node name="Customer UI" type="PanelContainer" parent="."]
+[node name="Customer UI" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -196,20 +182,20 @@ offset_top = -286.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Customer UI"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Customer UI"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Customer UI/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Customer UI/HBoxContainer"]
 layout_mode = 2
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Customer UI/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Customer UI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Lorem Ipsum"
 
-[node name="OverlayPanel" type="Panel" parent="."]
+[node name="OverlayPanel" type="Panel" parent="CanvasLayer"]
 visible = false
 top_level = true
 anchors_preset = 15
@@ -219,7 +205,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8auli")
 
-[node name="OverlayText" type="Label" parent="OverlayPanel"]
+[node name="OverlayText" type="Label" parent="CanvasLayer/OverlayPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -258,6 +244,8 @@ initial_node_to_watch = NodePath("../StateChart")
 [connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Game Win" to="." method="_on_game_win_state_entered"]
 [connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Game Lost Suspicion" to="." method="_on_game_lost_suspicion_state_entered"]
 [connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Game Lost Army" to="." method="_on_game_lost_army_state_entered"]
-[connection signal="pressed" from="DebugPanel/VBoxContainer/Button" to="." method="_on_end_forging_button_pressed"]
-[connection signal="pressed" from="DebugPanel/VBoxContainer/ServeCustomerButton" to="." method="_on_serve_customer_button_pressed"]
-[connection signal="pressed" from="DebugPanel/VBoxContainer/RefuseCustomerButton" to="." method="_on_refuse_customer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DebugPanel/VBoxContainer/Button" to="." method="_on_end_forging_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DebugPanel/VBoxContainer/ServeCustomerButton" to="." method="_on_serve_customer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DebugPanel/VBoxContainer/RefuseCustomerButton" to="." method="_on_refuse_customer_button_pressed"]
+
+[editable path="TestForge"]

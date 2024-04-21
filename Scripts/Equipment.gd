@@ -1,6 +1,6 @@
 extends RefCounted
 
-class_name Equipment
+#class_name Equipment
 
 enum Quality {
 	NONE,

@@ -21,11 +21,11 @@ func setup_day(day_num: int):
 	active_day = days[day_num - 1]
 	var customers : Array[Customer] = []
 	for i in active_day.soldier_count:
-		customers.append(Customer.new(Customer.Type.SOLDIER, badge_tex_placeholder[0], Equipment.Type.SWORD))
+		customers.append(Customer.new(Customer.Type.SOLDIER, badge_tex_placeholder[0]))
 	for i in active_day.rebel_count:
-		customers.append(Customer.new(Customer.Type.REBEL, badge_tex_placeholder[1], Equipment.Type.SWORD))
+		customers.append(Customer.new(Customer.Type.REBEL, badge_tex_placeholder[1]))
 	for i in active_day.agent_count:
-		customers.append(Customer.new(Customer.Type.AGENT, badge_tex_placeholder[2], Equipment.Type.SWORD))
+		customers.append(Customer.new(Customer.Type.AGENT, badge_tex_placeholder[2]))
 		
 	customers.shuffle()
 	# Insert special customers

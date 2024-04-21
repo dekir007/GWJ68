@@ -4,3 +4,9 @@
 
 [node name="FailureScreen" instance=ExtResource("1_6po0x")]
 main_menu_scene = "res://Scenes/Menus/MainMenu/MainMenuWithAnimations.tscn"
+
+[node name="FailureMessage" parent="Control/Panel/MarginContainer/VBoxContainer" index="0"]
+text = "You drew too much suspicion and were sent 
+to the dungeon for the rest of your life
+
+You lose"

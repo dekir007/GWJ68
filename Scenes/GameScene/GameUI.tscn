@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxkq10mmjl517"]
+[gd_scene load_steps=9 format=3 uid="uid://dxkq10mmjl517"]
 
 [ext_resource type="Script" path="res://Scenes/GameScene/GameUI.gd" id="1_vn54u"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/PauseMenuController.gd" id="2_bmhjc"]
 [ext_resource type="PackedScene" uid="uid://duroffod7xmi1" path="res://Scenes/SuccessScreen/SuccessScreenWithScenes.tscn" id="2_nqkbc"]
-[ext_resource type="PackedScene" uid="uid://3shqv5bkeaki" path="res://Scenes/FailureScreen/FailureScreenWithScenes.tscn" id="3_5vekb"]
+[ext_resource type="PackedScene" uid="uid://sxv4cty6a4gf" path="res://Scenes/FailureScreen/ArmyFailureScreenWithScenes.tscn" id="3_drtju"]
 [ext_resource type="PackedScene" uid="uid://dtdpd6o5xj4dq" path="res://Scenes/Menus/PauseMenu/PauseMenuWithScenes.tscn" id="3_n6jen"]
 [ext_resource type="PackedScene" uid="uid://cd0jbh4metflb" path="res://addons/maaacks_game_template/base/scenes/LoadingScreen/LoadingScreen.tscn" id="4_4r4kr"]
+[ext_resource type="PackedScene" uid="uid://3shqv5bkeaki" path="res://Scenes/FailureScreen/SusFailureScreenWithScenes.tscn" id="4_mv5ic"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/LevelLoader.gd" id="7_dgyvu"]
 
 [node name="GameUI" type="Control"]
@@ -18,7 +19,8 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_vn54u")
 win_scene = ExtResource("2_nqkbc")
-lose_scene = ExtResource("3_5vekb")
+lose_army_scene = ExtResource("3_drtju")
+lose_sus_scene = ExtResource("4_mv5ic")
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -37,7 +39,7 @@ pause_menu_packed = ExtResource("3_n6jen")
 [node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
 script = ExtResource("7_dgyvu")
 level_container = NodePath("../Node3D")
-files = Array[String](["res://Test/test_forge.tscn"])
+files = Array[String](["res://Scenes/GameScene/game_manager.tscn"])
 directory = "res://Test"
 
 [connection signal="level_load_started" from="LevelLoader" to="." method="_on_level_loader_level_load_started"]
