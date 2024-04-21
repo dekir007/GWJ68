@@ -12,8 +12,10 @@ func _ready() -> void:
 func put_item(item_node : ItemNode):
 	for marker : Marker3D in markers:
 		if marker.get_child_count() == 0:
-			item_node.reparent(marker)
-			#marker.add_child(item_node)
+			if item_node.parent != null:
+				item_node.parent.take_item()
+			#item_node.reparent(marker)
+			marker.add_child(item_node)
 			item_node.position = Vector3.ZERO
 			item_node.rotation = Vector3.ZERO
 			return

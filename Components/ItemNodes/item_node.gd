@@ -1,6 +1,9 @@
 extends Interactable
 class_name ItemNode
 
+const too_cold : int = 1100
+const too_hot : int = 1500
+
 @export var item : Item
 @export var temperature : float = 20
 
@@ -45,9 +48,9 @@ func create_meshes():
 	add_child(outline)
 
 func get_state_for_forging():
-	if temperature < 1100:
+	if temperature <= too_cold:
 		return "Needs to be hotter"
-	elif temperature < 1500:
+	elif temperature < too_hot:
 		return "Can forge"
 	else:
 		return "Too hot (worse quality)"

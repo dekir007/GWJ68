@@ -79,14 +79,13 @@ func _on_idle_state_unhandled_input(event: InputEvent) -> void:
 			tw.tween_property(camera, "rotation_degrees:y", final_val, 1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 			tw.tween_callback(c)
 			
-			
-		elif event.keycode == KEY_E:
-			if !forge.near_anvil:
-				forge.animation_player.play("to_anvil")
-				forge.near_anvil = true
-			else:
-				forge.animation_player.play_backwards("to_anvil")
-				forge.near_anvil = false
+	if Input.is_action_just_pressed("get_near_anvil"):
+		if !forge.near_anvil:
+			forge.animation_player.play("to_anvil")
+			forge.near_anvil = true
+		else:
+			forge.animation_player.play_backwards("to_anvil")
+			forge.near_anvil = false
 	
 	if event is InputEventMouseButton:
 		event = event as InputEventMouseButton
@@ -108,7 +107,7 @@ func _on_idle_state_unhandled_input(event: InputEvent) -> void:
 				if item_node.parent is Anvil and forge.near_anvil:
 					var forging_options = FORGING_OPTIONS.instantiate()
 					#forging_options.position = event.position
-					forging_options.item = item_node.item
+					forging_options.item_node = item_node
 					add_child(forging_options)
 					forging_options.chosen.connect(func(_new_item : Item):
 						pass # TODO
@@ -152,6 +151,9 @@ func _on_dragging_state_unhandled_input(event: InputEvent) -> void:
 				else:
 					var station = res["collider"].get_parent()
 					state_chart.send_event("released")
+					if !(station is CraftingStation):
+						current_item.position = Vector3.ZERO
+						return
 					if station.current_item == null:
 						if current_item.parent != null:
 							# remove from old station
@@ -162,8 +164,14 @@ func _on_dragging_state_unhandled_input(event: InputEvent) -> void:
 						station.get_item(current_item)
 					elif station.current_item == current_item:
 						current_item.position = Vector3.ZERO
-					else:
-						current_item.position = Vector3.ZERO
+					elif current_item.parent != null: # swap
+						var sw = station.current_item
+						var station2 = current_item.parent
+						current_item.parent.take_item()
+						station.take_item()
+						station.get_item(current_item)
+						station2.get_item(sw)
+						#current_item.position = Vector3.ZERO
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.is_released():
 				state_chart.send_event("released")
@@ -193,9 +201,13 @@ func _on_wait_hit_state_unhandled_input(event: InputEvent) -> void:
 
 
 func _on_distribution_state_entered() -> void:
+	forge.get_ingots_layer.hide()
 	forge.equipment_distribution.get_items(forge.items_on_table.map(func(x): return x.item))
 	pass # Replace with function body.
 
+func _on_distribution_state_exited() -> void:
+	forge.get_ingots_layer.show()
+	pass
 
 func _on_distribution_state_unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:

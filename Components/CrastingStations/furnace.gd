@@ -22,7 +22,9 @@ func _on_has_item_state_processing(delta: float) -> void:
 	if current_item.temperature < 1300:
 		# TODO play normal sound
 		current_item.temperature += 150 * delta
-	else: 
+	elif current_item.temperature < 2000: 
 		# TODO play "too hot"
 		current_item.temperature += 25 * delta
+	else:
+		current_item.temperature += randf_range(-5, 2) * delta
 	pass # Replace with function body.
