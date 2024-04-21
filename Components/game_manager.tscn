@@ -1,0 +1,263 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4j3w6578d7ep"]
+
+[ext_resource type="Script" path="res://Components/GameManager.gd" id="1_eqmcd"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_4023w"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_ceesj"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_jf8bm"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_tenab"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_8dmj7"]
+[ext_resource type="FontFile" uid="uid://c5w0sovmd885s" path="res://Assets/fonts/Lora.ttf" id="8_avt5j"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="9_cac7i"]
+[ext_resource type="PackedScene" uid="uid://c838u8htin5xj" path="res://Components/scenario_manager.tscn" id="9_ii0cx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8auli"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kqonc"]
+font = ExtResource("8_avt5j")
+font_size = 50
+
+[node name="GameManager" type="Node" node_paths=PackedStringArray("scenario_manager")]
+script = ExtResource("1_eqmcd")
+scenario_manager = NodePath("ScenarioManager")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_4023w")
+
+[node name="ParallelState" type="Node" parent="StateChart"]
+script = ExtResource("3_ceesj")
+
+[node name="CompoundState" type="Node" parent="StateChart/ParallelState"]
+script = ExtResource("4_jf8bm")
+initial_state = NodePath("Setup")
+
+[node name="Setup" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Day Start" type="Node" parent="StateChart/ParallelState/CompoundState/Setup"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Day Start")
+event = &"day_start"
+
+[node name="Day Start" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Forge Start" type="Node" parent="StateChart/ParallelState/CompoundState/Day Start"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Forge Start")
+delay_seconds = 5.0
+
+[node name="Forge Start" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Forge Time" type="Node" parent="StateChart/ParallelState/CompoundState/Forge Start"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Forge Time")
+delay_seconds = 2.0
+
+[node name="Forge Time" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Service Start" type="Node" parent="StateChart/ParallelState/CompoundState/Forge Time"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Service Start")
+event = &"service_start"
+
+[node name="Service Start" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Service Time" type="Node" parent="StateChart/ParallelState/CompoundState/Service Start"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Service Time")
+delay_seconds = 2.0
+
+[node name="Service Time" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Day End" type="Node" parent="StateChart/ParallelState/CompoundState/Service Time"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Day End")
+event = &"day_end"
+
+[node name="Day End" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="To Setup" type="Node" parent="StateChart/ParallelState/CompoundState/Day End"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Setup")
+event = &"setup"
+delay_seconds = 3.0
+
+[node name="To Game Win" type="Node" parent="StateChart/ParallelState/CompoundState/Day End"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Game Win")
+event = &"game_win"
+
+[node name="To Game Lost Suspicion" type="Node" parent="StateChart/ParallelState/CompoundState/Day End"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Game Lost Suspicion")
+event = &"game_lost_suspicion"
+
+[node name="To Game Lost Army" type="Node" parent="StateChart/ParallelState/CompoundState/Day End"]
+script = ExtResource("6_8dmj7")
+to = NodePath("../../Game Lost Army")
+event = &"game_lost_army"
+
+[node name="Game Win" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="Game Lost Suspicion" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="Game Lost Army" type="Node" parent="StateChart/ParallelState/CompoundState"]
+script = ExtResource("5_tenab")
+
+[node name="PausedState" type="Node" parent="StateChart/ParallelState"]
+script = ExtResource("4_jf8bm")
+initial_state = NodePath("Playing")
+
+[node name="Playing" type="Node" parent="StateChart/ParallelState/PausedState"]
+script = ExtResource("5_tenab")
+
+[node name="Paused" type="Node" parent="StateChart/ParallelState/PausedState"]
+script = ExtResource("5_tenab")
+
+[node name="DebugPanel" type="PanelContainer" parent="."]
+offset_left = 6.0
+offset_top = 22.0
+offset_right = 391.0
+offset_bottom = 435.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "Debugger"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "End Forging Time"
+
+[node name="ServeCustomerButton" type="Button" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "Serve Customer"
+
+[node name="Label2" type="Label" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "Quality"
+horizontal_alignment = 1
+
+[node name="QualityButton" type="OptionButton" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+item_count = 8
+selected = 1
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Unusable"
+popup/item_1/id = 1
+popup/item_2/text = "Shoddy"
+popup/item_2/id = 2
+popup/item_3/text = "Poor"
+popup/item_3/id = 3
+popup/item_4/text = "Ok"
+popup/item_4/id = 4
+popup/item_5/text = "Good"
+popup/item_5/id = 5
+popup/item_6/text = "Great"
+popup/item_6/id = 6
+popup/item_7/text = "Perfect"
+popup/item_7/id = 7
+
+[node name="Label3" type="Label" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "Equipment Type"
+horizontal_alignment = 1
+
+[node name="TypeButton" type="OptionButton" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Sword"
+popup/item_0/id = 0
+
+[node name="RefuseCustomerButton" type="Button" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "Refuse Customer"
+
+[node name="Customer UI" type="PanelContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -286.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Customer UI"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Customer UI/HBoxContainer"]
+layout_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Customer UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Lorem Ipsum"
+
+[node name="OverlayPanel" type="Panel" parent="."]
+visible = false
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8auli")
+
+[node name="OverlayText" type="Label" parent="OverlayPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -378.0
+offset_top = -174.0
+offset_right = 378.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Day X
+X Days until battle"
+label_settings = SubResource("LabelSettings_kqonc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("9_cac7i")]
+offset_left = 849.0
+offset_bottom = -311.0
+initial_node_to_watch = NodePath("../StateChart")
+
+[node name="ScenarioManager" parent="." instance=ExtResource("9_ii0cx")]
+
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Setup" to="." method="_on_setup_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Day Start" to="." method="_on_day_start_state_entered"]
+[connection signal="state_exited" from="StateChart/ParallelState/CompoundState/Day Start" to="." method="_on_day_start_state_exited"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Forge Start" to="." method="_on_forge_start_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Forge Time" to="." method="_on_forge_time_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Service Start" to="." method="_on_service_start_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Service Time" to="." method="_on_service_time_state_entered"]
+[connection signal="state_exited" from="StateChart/ParallelState/CompoundState/Service Time" to="." method="_on_service_time_state_exited"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Day End" to="." method="_on_day_end_state_entered"]
+[connection signal="state_exited" from="StateChart/ParallelState/CompoundState/Day End" to="." method="_on_day_end_state_exited"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Game Win" to="." method="_on_game_win_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Game Lost Suspicion" to="." method="_on_game_lost_suspicion_state_entered"]
+[connection signal="state_entered" from="StateChart/ParallelState/CompoundState/Game Lost Army" to="." method="_on_game_lost_army_state_entered"]
+[connection signal="pressed" from="DebugPanel/VBoxContainer/Button" to="." method="_on_end_forging_button_pressed"]
+[connection signal="pressed" from="DebugPanel/VBoxContainer/ServeCustomerButton" to="." method="_on_serve_customer_button_pressed"]
+[connection signal="pressed" from="DebugPanel/VBoxContainer/RefuseCustomerButton" to="." method="_on_refuse_customer_button_pressed"]

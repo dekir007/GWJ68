@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c838u8htin5xj"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/ScenarioManager.gd" id="1_16i88"]
+[ext_resource type="Script" path="res://Components/ScenarioManager.gd" id="1_16i88"]
 [ext_resource type="Texture2D" uid="uid://ptemeliyop1v" path="res://Assets/Images/shields_placeholder.png" id="2_ust1g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1j75f"]

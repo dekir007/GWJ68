@@ -18,14 +18,14 @@ func _ready():
 	pass # Replace with function body.
 	
 func setup_day(day_num: int):
-	active_day = days[day_num]
+	active_day = days[day_num - 1]
 	var customers : Array[Customer] = []
 	for i in active_day.soldier_count:
-		customers.append(Customer.new(CustomerType.SOLDIER, badge_tex_placeholder[0]))
+		customers.append(Customer.new(Customer.Type.SOLDIER, badge_tex_placeholder[0], Equipment.Type.SWORD))
 	for i in active_day.rebel_count:
-		customers.append(Customer.new(CustomerType.REBEL, badge_tex_placeholder[1]))
+		customers.append(Customer.new(Customer.Type.REBEL, badge_tex_placeholder[1], Equipment.Type.SWORD))
 	for i in active_day.agent_count:
-		customers.append(Customer.new(CustomerType.AGENT, badge_tex_placeholder[2]))
+		customers.append(Customer.new(Customer.Type.AGENT, badge_tex_placeholder[2], Equipment.Type.SWORD))
 		
 	customers.shuffle()
 	# Insert special customers
@@ -36,6 +36,12 @@ func get_current_customer() -> Customer:
 	
 func get_remaining_customers() -> int:
 	return customers_queue.size()
+	
+func is_last_day(day: int) -> bool:
+	return day >= days.size()
+	
+func get_remaining_days(day: int) -> int:
+	return days.size() - day
 	
 func next_customer():
 	current_customer = customers_queue.pop_front()
