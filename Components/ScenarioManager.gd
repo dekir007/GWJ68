@@ -2,7 +2,9 @@ extends Node
 
 class_name ScenarioManager
 
-@export var badge_tex_placeholder: Array[Texture2D]
+@export var badge_tex_soldier: Array[Texture2D]
+@export var badge_tex_rebel: Array[Texture2D]
+@export var badge_tex_agent: Array[Texture2D]
 
 var days: Array[DayModel] = [
 	DayModel.new(5, 0, 0),
@@ -21,11 +23,11 @@ func setup_day(day_num: int):
 	active_day = days[day_num - 1]
 	var customers : Array[Customer] = []
 	for i in active_day.soldier_count:
-		customers.append(Customer.new(Customer.Type.SOLDIER, badge_tex_placeholder[0]))
+		customers.append(Customer.new(Customer.Type.SOLDIER, get_rand_badge(Customer.Type.SOLDIER)))
 	for i in active_day.rebel_count:
-		customers.append(Customer.new(Customer.Type.REBEL, badge_tex_placeholder[1]))
+		customers.append(Customer.new(Customer.Type.REBEL, get_rand_badge(Customer.Type.REBEL)))
 	for i in active_day.agent_count:
-		customers.append(Customer.new(Customer.Type.AGENT, badge_tex_placeholder[2]))
+		customers.append(Customer.new(Customer.Type.AGENT, get_rand_badge(Customer.Type.AGENT)))
 		
 	customers.shuffle()
 	# Insert special customers
@@ -45,6 +47,23 @@ func get_remaining_days(day: int) -> int:
 	
 func next_customer():
 	current_customer = customers_queue.pop_front()
+	
+func get_rand_badge(customer_type: Customer.Type) -> Texture2D:
+	match customer_type:
+		Customer.Type.SOLDIER:
+			var i = randi() % badge_tex_soldier.size()
+			print("Soldier: %d" % i)
+			return badge_tex_soldier[i]
+		Customer.Type.REBEL:
+			var i = randi() % badge_tex_rebel.size()
+			print("Rebel: %d" % i)
+			return badge_tex_rebel[i]
+		Customer.Type.AGENT:
+			var i = randi() % badge_tex_agent.size()
+			print("Agent: %d" % i)
+			return badge_tex_agent[i]
+		_:
+			return badge_tex_soldier[0]
 		
 class DayModel:
 	var soldier_count: int

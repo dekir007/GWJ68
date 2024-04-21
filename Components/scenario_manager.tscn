@@ -1,20 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://c838u8htin5xj"]
+[gd_scene load_steps=10 format=3 uid="uid://c838u8htin5xj"]
 
 [ext_resource type="Script" path="res://Components/ScenarioManager.gd" id="1_16i88"]
-[ext_resource type="Texture2D" uid="uid://ptemeliyop1v" path="res://Assets/Images/shields_placeholder.png" id="2_ust1g"]
+[ext_resource type="Texture2D" uid="uid://ui7euahirkv6" path="res://Textures/shields.png" id="2_b3epv"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1j75f"]
-atlas = ExtResource("2_ust1g")
-region = Rect2(0, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbdpv"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(0, 0, 110, 126)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cgyxv"]
-atlas = ExtResource("2_ust1g")
-region = Rect2(256, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_uiyt8"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(0, 126, 110, 126)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7e5fd"]
-atlas = ExtResource("2_ust1g")
-region = Rect2(512, 0, 256, 256)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkohl"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(110, 0, 110, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_caxxx"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(110, 126, 110, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ii80"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(220, 126, 110, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4biyy"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(220, 0, 110, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6juj8"]
+atlas = ExtResource("2_b3epv")
+region = Rect2(330, 126, 110, 126)
 
 [node name="ScenarioManager" type="Node"]
 script = ExtResource("1_16i88")
-badge_tex_placeholder = Array[Texture2D]([SubResource("AtlasTexture_1j75f"), SubResource("AtlasTexture_cgyxv"), SubResource("AtlasTexture_7e5fd")])
+badge_tex_soldier = Array[Texture2D]([SubResource("AtlasTexture_gbdpv"), SubResource("AtlasTexture_uiyt8")])
+badge_tex_rebel = Array[Texture2D]([SubResource("AtlasTexture_bkohl"), SubResource("AtlasTexture_caxxx"), SubResource("AtlasTexture_2ii80")])
+badge_tex_agent = Array[Texture2D]([SubResource("AtlasTexture_4biyy"), SubResource("AtlasTexture_6juj8")])
