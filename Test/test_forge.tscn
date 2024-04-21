@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bkibj8u0mie7y"]
+[gd_scene load_steps=27 format=3 uid="uid://bkibj8u0mie7y"]
 
 [ext_resource type="Script" path="res://Test/test_forge.gd" id="1_kefk8"]
 [ext_resource type="PackedScene" uid="uid://c5mjbsl4ik7j" path="res://Components/CrastingStations/Anvil.tscn" id="2_2clwy"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b0njyc3rld62q" path="res://Components/ItemNodes/item_node.tscn" id="9_ld4ro"]
 [ext_resource type="Resource" uid="uid://bum0ogbmj2a6h" path="res://Components/Items/ingot.tres" id="12_4tboe"]
 [ext_resource type="AudioStream" uid="uid://brmcbuevk7mpx" path="res://Assets/audio/Mus_1.mp3" id="15_m4uct"]
+[ext_resource type="Script" path="res://Test/HelpLayer.gd" id="16_i8usi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cj68h"]
 albedo_color = Color(0.45098, 0.45098, 0.45098, 1)
@@ -411,6 +412,36 @@ offset_top = -30.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Get 1 ingot"
+
+[node name="HelpLayer" type="CanvasLayer" parent="."]
+script = ExtResource("16_i8usi")
+
+[node name="HelpContainer" type="PanelContainer" parent="HelpLayer"]
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.2
+anchor_right = 0.7
+anchor_bottom = 0.8
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HelpLayer/HelpContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HelpText" type="RichTextLabel" parent="HelpLayer/HelpContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 32
+text = "Help text"
 
 [connection signal="state_entered" from="StateChart/State/Idle" to="StateChartHandler" method="_on_idle_state_entered"]
 [connection signal="state_unhandled_input" from="StateChart/State/Idle" to="StateChartHandler" method="_on_idle_state_unhandled_input"]

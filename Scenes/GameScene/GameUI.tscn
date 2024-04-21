@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxkq10mmjl517"]
+[gd_scene load_steps=8 format=3 uid="uid://dxkq10mmjl517"]
 
 [ext_resource type="Script" path="res://Scenes/GameScene/GameUI.gd" id="1_vn54u"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/PauseMenuController.gd" id="2_bmhjc"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://3shqv5bkeaki" path="res://Scenes/FailureScreen/FailureScreenWithScenes.tscn" id="3_5vekb"]
 [ext_resource type="PackedScene" uid="uid://dtdpd6o5xj4dq" path="res://Scenes/Menus/PauseMenu/PauseMenuWithScenes.tscn" id="3_n6jen"]
 [ext_resource type="PackedScene" uid="uid://cd0jbh4metflb" path="res://addons/maaacks_game_template/base/scenes/LoadingScreen/LoadingScreen.tscn" id="4_4r4kr"]
-[ext_resource type="Script" path="res://Scenes/GameScene/InputDisplayLabel.gd" id="6_6hq0m"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/extras/scripts/LevelLoader.gd" id="7_dgyvu"]
 
 [node name="GameUI" type="Control"]
@@ -32,21 +31,6 @@ visible = false
 [node name="PauseMenuController" type="Node" parent="."]
 script = ExtResource("2_bmhjc")
 pause_menu_packed = ExtResource("3_n6jen")
-
-[node name="InputDisplayLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-horizontal_alignment = 1
-autowrap_mode = 2
-script = ExtResource("6_6hq0m")
 
 [node name="Node3D" type="Node3D" parent="."]
 
