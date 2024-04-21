@@ -393,6 +393,7 @@ libraries = {
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_m4uct")
+volume_db = -6.0
 autoplay = true
 bus = &"Music"
 

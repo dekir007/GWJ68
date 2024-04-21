@@ -1,6 +1,7 @@
 extends CraftingStation
 
 @onready var outline: MeshInstance3D = $MeshInstance3D/Outline
+@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,4 +28,14 @@ func _on_has_item_state_processing(delta: float) -> void:
 		current_item.temperature += 25 * delta
 	else:
 		current_item.temperature += randf_range(-5, 2) * delta
+	pass # Replace with function body.
+
+
+func _on_has_item_state_entered() -> void:
+	audio_stream_player_3d.play()
+	pass # Replace with function body.
+
+
+func _on_has_item_state_exited() -> void:
+	audio_stream_player_3d.stop()
 	pass # Replace with function body.

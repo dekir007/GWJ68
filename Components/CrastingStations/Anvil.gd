@@ -4,6 +4,7 @@ class_name Anvil
 @onready var outline: MeshInstance3D = $MeshInstance3D/Outline
 @onready var flash: GPUParticles3D = $Flash
 @onready var sparks: GPUParticles3D = $Sparks
+@onready var hit_sound: AudioStreamPlayer3D = $HitSound
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +18,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func get_hit():
+	hit_sound.play()
 	flash.restart()
 	sparks.restart()
 	#flash.emitting = true
